@@ -9,14 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <canvas id="stars" aria-hidden="true"></canvas>
 
   <header class="top">
     <img src="img/zenith-logo.png" alt="ZENITH" class="logo">
-    <span class="top-sub">Atılım Üniversitesi · Havacılık ve Uzay Müh.</span>
+    <span class="top-sub">Atılım Üniversitesi</span>
   </header>
 
   <main class="layout">
@@ -108,13 +108,13 @@
       <p class="eyebrow" lang="en">International Rocket Engineering Competition</p>
       <h1>IREC <span>2027</span>'ye kalan süre</h1>
 
-      <div class="clock" id="clock" aria-live="off">
-        <div class="unit"><b id="d">--</b><small>gün</small></div>
-        <div class="unit"><b id="h">--</b><small>saat</small></div>
-        <div class="unit"><b id="m">--</b><small>dakika</small></div>
-        <div class="unit"><b id="s">--</b><small>saniye</small></div>
+      <div class="clock" id="clock-irec" aria-live="off">
+        <div class="unit"><b data-u="d">--</b><small>gün</small></div>
+        <div class="unit"><b data-u="h">--</b><small>saat</small></div>
+        <div class="unit"><b data-u="m">--</b><small>dakika</small></div>
+        <div class="unit"><b data-u="s">--</b><small>saniye</small></div>
       </div>
-      <p class="target" id="target"></p>
+      <p class="target" id="target-irec"></p>
 
       <ul class="stats" aria-label="IREC 2026 görevi">
         <li><small>Geçen sezon</small><b>IREC 2026</b></li>
@@ -122,6 +122,8 @@
         <li><small>Hedef irtifa</small><b>10.000 ft</b></li>
         <li><small>Kategori</small><b>10K COTS</b></li>
       </ul>
+
+      <a class="scroll-hint" href="#teknofest">TEKNOFEST sayacı <span aria-hidden="true">↓</span></a>
     </section>
 
     <!-- Dönen albüm -->
@@ -136,6 +138,27 @@
     </aside>
   </main>
 
+  <!-- TEKNOFEST orta irtifa sayacı -->
+  <section class="tf" id="teknofest">
+    <p class="eyebrow">TEKNOFEST Roket Yarışması · Orta İrtifa</p>
+    <h2 class="tf-title">TEKNOFEST <span>2027</span>'ye kalan süre</h2>
+
+    <div class="clock" id="clock-tf" aria-live="off">
+      <div class="unit"><b data-u="d">--</b><small>gün</small></div>
+      <div class="unit"><b data-u="h">--</b><small>saat</small></div>
+      <div class="unit"><b data-u="m">--</b><small>dakika</small></div>
+      <div class="unit"><b data-u="s">--</b><small>saniye</small></div>
+    </div>
+    <p class="target" id="target-tf"></p>
+
+    <ul class="stats" aria-label="TEKNOFEST orta irtifa">
+      <li><small>Kategori</small><b>Orta İrtifa</b></li>
+      <li><small>Asgari irtifa</small><b>8.000 ft</b></li>
+      <li><small>2026 finali</small><b>Aksaray</b></li>
+      <li><small>Katıldığımız</small><b>2024–26</b></li>
+    </ul>
+  </section>
+
   <footer class="foot">
     <img src="img/atilim-logo.png" alt="Atılım Üniversitesi" class="uni">
     <span>ZENITH Roket Takımı · 2023'ten beri</span>
@@ -146,6 +169,6 @@
     <figure><img alt=""><figcaption></figcaption></figure>
   </div>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>

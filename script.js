@@ -1,7 +1,12 @@
 // ===== Ayarlar =====
-// IREC 2027 hedef tarihi (Türkiye saati, UTC+3)
+// Hedef tarihler (Türkiye saati, UTC+3)
 const IREC_TARIHI = new Date("2027-06-13T12:00:00+03:00");
 const TARIH_NOTU = "12:00 (Türkiye saati)";
+
+// TEKNOFEST 2027 roket finali henüz açıklanmadı; 2026 finali 7–13 Eylül'de
+// Aksaray'daydı. Resmî takvim (teknofest.org) yayınlanınca bu iki satırı güncelleyin.
+const TEKNOFEST_TARIHI = new Date("2027-09-06T09:00:00+03:00");
+const TEKNOFEST_NOTU = "Tahmini tarih — resmî takvim açıklanınca güncellenecek";
 
 // Albüm: img/album/01.jpg ... sırasıyla
 const ALBUM = [
@@ -31,39 +36,47 @@ const $ = (id) => document.getElementById(id);
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// ===== Geri sayım =====
+// ===== Geri sayımlar =====
 const pad2 = (n) => String(n).padStart(2, "0");
-const units = { d: $("d"), h: $("h"), m: $("m"), s: $("s") };
+const fmtDate = (d) => d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
 
-$("target").innerHTML =
-  `<em>${IREC_TARIHI.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}</em> · ${TARIH_NOTU}`;
+function startCountdown(clockId, targetId, date, note, title, doneHtml) {
+  const units = {};
+  $(clockId).querySelectorAll("[data-u]").forEach((el) => (units[el.dataset.u] = el));
+  $(targetId).innerHTML = `<em>${fmtDate(date)}</em> · ${note}`;
 
-function tickClock() {
-  const diff = IREC_TARIHI - Date.now();
-  if (diff <= 0) {
-    document.querySelector("h1").innerHTML = "IREC <span>2027</span> başladı!";
-    Object.values(units).forEach((el) => (el.textContent = "00"));
-    return;
-  }
-  const sec = Math.floor(diff / 1000);
-  const vals = {
-    d: String(Math.floor(sec / 86400)),
-    h: pad2(Math.floor(sec / 3600) % 24),
-    m: pad2(Math.floor(sec / 60) % 60),
-    s: pad2(sec % 60),
-  };
-  for (const k in vals) {
-    if (units[k].textContent !== vals[k]) {
-      units[k].textContent = vals[k];
-      const box = units[k].parentElement;
-      box.classList.remove("tick");
-      void box.offsetWidth;
-      box.classList.add("tick");
+  function tick() {
+    const diff = date - Date.now();
+    if (diff <= 0) {
+      title.innerHTML = doneHtml;
+      Object.values(units).forEach((el) => (el.textContent = "00"));
+      return;
+    }
+    const sec = Math.floor(diff / 1000);
+    const vals = {
+      d: String(Math.floor(sec / 86400)),
+      h: pad2(Math.floor(sec / 3600) % 24),
+      m: pad2(Math.floor(sec / 60) % 60),
+      s: pad2(sec % 60),
+    };
+    for (const k in vals) {
+      if (units[k].textContent !== vals[k]) {
+        units[k].textContent = vals[k];
+        const box = units[k].parentElement;
+        box.classList.remove("tick");
+        void box.offsetWidth;
+        box.classList.add("tick");
+      }
     }
   }
+  tick();
+  setInterval(tick, 1000);
 }
-tickClock();
-setInterval(tickClock, 1000);
+
+startCountdown("clock-irec", "target-irec", IREC_TARIHI, TARIH_NOTU,
+  document.querySelector("h1"), "IREC <span>2027</span> başladı!");
+startCountdown("clock-tf", "target-tf", TEKNOFEST_TARIHI, TEKNOFEST_NOTU,
+  document.querySelector(".tf-title"), "TEKNOFEST <span>2027</span> başladı!");
 
 // ===== Yıldızlı arka plan =====
 const cv = $("stars");
