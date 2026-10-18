@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZENITH · IREC 2027 Geri Sayım</title>
+  <meta name="description" content="Atılım Üniversitesi ZENITH Roket Takımı — IREC 2027'ye kalan süre.">
+  <link rel="icon" href="img/zenith-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <header class="top">
+    <img src="img/zenith-logo.png" alt="ZENITH" class="logo">
+    <span class="top-sub">Atılım Üniversitesi · Havacılık ve Uzay Müh.</span>
+  </header>
+
+  <main class="layout">
+    <!-- Roket: montaj → geri sayım → kalkış döngüsü -->
+    <section class="stage" aria-label="Roket animasyonu">
+      <svg id="pad" viewBox="0 0 300 600" role="img" aria-label="Roket montajı ve kalkışı">
+        <defs>
+          <linearGradient id="body" x1="0" x2="1">
+            <stop offset="0" stop-color="#c94a0c"/>
+            <stop offset=".45" stop-color="#ff7a2a"/>
+            <stop offset="1" stop-color="#b8420a"/>
+          </linearGradient>
+          <linearGradient id="dark" x1="0" x2="1">
+            <stop offset="0" stop-color="#0b0d12"/>
+            <stop offset=".5" stop-color="#2a2f3a"/>
+            <stop offset="1" stop-color="#0b0d12"/>
+          </linearGradient>
+          <radialGradient id="fire" cx=".5" cy="0" r="1">
+            <stop offset="0" stop-color="#fff6d0"/>
+            <stop offset=".35" stop-color="#ffc23d"/>
+            <stop offset=".7" stop-color="#ff5a12"/>
+            <stop offset="1" stop-color="#ff5a12" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Rampa kulesi -->
+        <g class="tower">
+          <rect x="196" y="150" width="8" height="410" fill="#262c38"/>
+          <rect x="226" y="150" width="8" height="410" fill="#262c38"/>
+          <path d="M200 170 L230 210 M230 170 L200 210 M200 250 L230 290 M230 250 L200 290 M200 330 L230 370 M230 330 L200 370 M200 410 L230 450 M230 410 L200 450 M200 490 L230 530 M230 490 L200 530" stroke="#323a4a" stroke-width="2"/>
+          <rect x="168" y="150" width="70" height="6" fill="#323a4a"/>
+          <line id="hook" x1="176" y1="156" x2="176" y2="200" stroke="#8a94a8" stroke-width="1.5"/>
+        </g>
+        <rect x="40" y="556" width="220" height="10" rx="2" fill="#1a1f29"/>
+        <rect x="0" y="566" width="300" height="34" fill="#0d1017"/>
+
+        <g id="smoke"></g>
+
+        <g id="rocket">
+          <g id="flame">
+            <path d="M138 548 Q150 640 162 548 Z" fill="url(#fire)"/>
+            <path d="M143 548 Q150 600 157 548 Z" fill="#fffbe8"/>
+          </g>
+          <!-- data-step: montaj sırası -->
+          <g class="part" data-step="0" data-label="Motor yuvası ve nozul">
+            <path d="M140 530 L160 530 L156 548 L144 548 Z" fill="url(#dark)"/>
+          </g>
+          <g class="part" data-step="1" data-label="Alt gövde (fiberglas)">
+            <rect x="132" y="400" width="36" height="130" fill="url(#body)"/>
+          </g>
+          <g class="part" data-step="2" data-label="Karbon fiber kanatçıklar">
+            <path d="M132 470 L104 524 L104 536 L132 530 Z" fill="url(#dark)"/>
+            <path d="M168 470 L196 524 L196 536 L168 530 Z" fill="url(#dark)"/>
+            <rect x="148" y="474" width="4" height="60" fill="#1b1f27"/>
+          </g>
+          <g class="part" data-step="3" data-label="Aviyonik bölmesi">
+            <rect x="132" y="380" width="36" height="20" fill="#1c212b"/>
+            <circle class="led" cx="160" cy="390" r="2.4" fill="#3dff8a"/>
+            <rect x="137" y="388" width="14" height="4" rx="1" fill="#3a4252"/>
+          </g>
+          <g class="part" data-step="4" data-label="Üst gövde ve faydalı yük">
+            <rect x="132" y="270" width="36" height="110" fill="url(#body)"/>
+            <rect x="139" y="282" width="22" height="15" fill="#e30a17"/>
+            <circle cx="148" cy="289.5" r="4.2" fill="#fff"/>
+            <circle cx="149.3" cy="289.5" r="3.4" fill="#e30a17"/>
+            <polygon transform="translate(153.8 289.5)" points="-1.8,0 -0.58,-0.42 -0.56,-1.71 0.22,-0.68 1.46,-1.06 0.72,0 1.46,1.06 0.22,0.68 -0.56,1.71 -0.58,0.42" fill="#fff"/>
+            <text x="150" y="312" transform="rotate(90 150 312)" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="11" letter-spacing="3" fill="#fff">ZENITH</text>
+          </g>
+          <g class="part" data-step="5" data-label="Burun konisi">
+            <path d="M132 270 C132 225 142 196 150 180 C158 196 168 225 168 270 Z" fill="url(#dark)"/>
+          </g>
+        </g>
+
+        <g id="spark" opacity="0">
+          <circle r="3" fill="#fff4c2"/>
+          <path d="M-9 0 H9 M0 -9 V9 M-6 -6 L6 6 M6 -6 L-6 6" stroke="#ffc23d" stroke-width="1.4"/>
+        </g>
+      </svg>
+
+      <div class="status">
+        <span class="status-tag" id="phase">MONTAJ</span>
+        <span id="status-text">Hazırlanıyor…</span>
+        <div class="bar"><i id="bar"></i></div>
+      </div>
+    </section>
+
+    <!-- Geri sayım -->
+    <section class="center">
+      <p class="eyebrow" lang="en">International Rocket Engineering Competition</p>
+      <h1>IREC <span>2027</span>'ye kalan süre</h1>
+
+      <div class="clock" id="clock" aria-live="off">
+        <div class="unit"><b id="d">--</b><small>gün</small></div>
+        <div class="unit"><b id="h">--</b><small>saat</small></div>
+        <div class="unit"><b id="m">--</b><small>dakika</small></div>
+        <div class="unit"><b id="s">--</b><small>saniye</small></div>
+      </div>
+      <p class="target" id="target"></p>
+
+      <ul class="stats" aria-label="IREC 2026 görevi">
+        <li><small>Geçen sezon</small><b>IREC 2026</b></li>
+        <li><small>Roket</small><b>ANKA</b></li>
+        <li><small>Hedef irtifa</small><b>10.000 ft</b></li>
+        <li><small>Kategori</small><b>10K COTS</b></li>
+      </ul>
+    </section>
+
+    <!-- Dönen albüm -->
+    <aside class="album" aria-label="IREC 2026 albümü">
+      <h2>IREC 2026 albümü</h2>
+      <div class="deck" id="deck"></div>
+      <div class="album-nav">
+        <button id="prev" aria-label="Önceki fotoğraf">‹</button>
+        <span id="counter">1 / 20</span>
+        <button id="next" aria-label="Sonraki fotoğraf">›</button>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="foot">
+    <img src="img/atilim-logo.png" alt="Atılım Üniversitesi" class="uni">
+    <span>ZENITH Roket Takımı · 2023'ten beri</span>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" aria-label="Kapat">×</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
