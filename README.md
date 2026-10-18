@@ -18,13 +18,13 @@ npx serve .
 
 ## Tarihi güncellemek
 
-IREC 2027 tarihi henüz açıklanmadı; sayaç **tahmini** bir tarihe ayarlı.
-ESRA ([soundingrocket.org](https://www.soundingrocket.org)) resmî takvimi yayınlayınca
+Sayaç 13 Haziran 2027, 12:00 (Türkiye saati) için ayarlı.
+Tarih değişirse
 `script.js` dosyasının başındaki iki satırı değiştirin:
 
 ```js
-const IREC_TARIHI = new Date("2027-06-14T08:00:00-05:00");
-const TARIH_NOTU = "Tahmini tarih — resmî takvim açıklanınca güncellenecek";
+const IREC_TARIHI = new Date("2027-06-13T12:00:00+03:00");
+const TARIH_NOTU = "12:00 (Türkiye saati)";
 ```
 
 ## Albüme fotoğraf eklemek

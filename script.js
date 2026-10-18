@@ -1,8 +1,7 @@
 // ===== Ayarlar =====
-// IREC 2027 tarihi henüz açıklanmadı. ESRA (soundingrocket.org) resmî takvimi
-// yayınlayınca bu iki satırı güncelleyin.
-const IREC_TARIHI = new Date("2027-06-14T08:00:00-05:00");
-const TARIH_NOTU = "Tahmini tarih — resmî takvim açıklanınca güncellenecek";
+// IREC 2027 hedef tarihi (Türkiye saati, UTC+3)
+const IREC_TARIHI = new Date("2027-06-13T12:00:00+03:00");
+const TARIH_NOTU = "12:00 (Türkiye saati)";
 
 // Albüm: img/album/01.jpg ... sırasıyla
 const ALBUM = [
